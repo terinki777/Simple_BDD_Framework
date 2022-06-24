@@ -32,8 +32,9 @@
     * статус код 200
     * извлечь данные
       | id | $.id |
-
+##########################################################################################
 # Создать колонку "Backlog"
+
     * создать запрос
       | method | url                                         |
       | POST   | https://api.trello.com/1/boards/${id}/lists |
@@ -45,8 +46,9 @@
       | Content-Type | application/json |
     * отправить запрос
     * статус код 200
-
+##########################################################################################
 #  Добавить карточку в колонку Backlog с названием "Карточка для изучения API"
+
     * создать запрос
       | method | url                                         |
       | GET    | https://api.trello.com/1/boards/${id}/lists |
@@ -69,8 +71,9 @@
       | Content-Type | application/json |
     * отправить запрос
     * статус код 200
-
+##########################################################################################
 #	Добавить вложение в виде любой фотографии
+
     * создать запрос
       | method | url                                         |
       | GET    | https://api.trello.com/1/boards/${id}/cards |
@@ -92,11 +95,12 @@
       | Content-Type | application/json |
     * отправить запрос
     * статус код 200
-
+##########################################################################################
 #  	Поставить срок выполнения на следующий день
 #  	Добавить описание "Тут будет отмечаться прогресс обучения"
+
     * создать запрос
-      | method | url                                      | body                |
+      | method | url                                      | body            |
       | PUT    | https://api.trello.com/1/cards/${idCard} | updateCard.json |
     * добавить query параметры
       | key   | 9b121c5e4d5c30149c1b413f531bfe9d                                 |
@@ -105,32 +109,151 @@
       | Content-Type | application/json |
     * отправить запрос
     * статус код 200
+##########################################################################################
+#  Создать чек-лист с пунктами:
+
+    * создать запрос
+      | method | url                                 |
+      | POST   | https://api.trello.com/1/checklists |
+    * добавить query параметры
+      | idCard | ${idCard}                                                        |
+      | key    | 9b121c5e4d5c30149c1b413f531bfe9d                                 |
+      | token  | a30fba37ee4edd90677db7bbad688f24a070c5e366f5d0ed4d11351708808f80 |
+    * добавить header
+      | Content-Type | application/json |
+    * отправить запрос
+    * статус код 200
 
 
+    * извлечь данные
+      | idChecklists | $.id |
+    * статус код 200
 
+#  - Понять протокол HTTP
 
+    * создать запрос
+      | method | url                                                            |
+      | POST   | https://api.trello.com/1/checklists/${idChecklists}/checkItems |
+    * добавить query параметры
+      | name  | Понять протокол HTTP                                             |
+      | key   | 9b121c5e4d5c30149c1b413f531bfe9d                                 |
+      | token | a30fba37ee4edd90677db7bbad688f24a070c5e366f5d0ed4d11351708808f80 |
+    * добавить header
+      | Content-Type | application/json |
+    * отправить запрос
+    * статус код 200
 
-#  # удалить доску
-#        * создать запрос
-#      | method | url                                  | body             |
-#      | DELETE   | https://api.trello.com/1/boards/${id} | createBoard.json |
-#    * добавить query параметры
-#      | key   | 9b121c5e4d5c30149c1b413f531bfe9d                                 |
-#      | token | a30fba37ee4edd90677db7bbad688f24a070c5e366f5d0ed4d11351708808f80 |
-#    * добавить header
-#      | Content-Type | application/json |
-#    * отправить запрос
-#    * статус код 200
+    * извлечь данные
+      | idCheckitemHttp | $.id |
+    * статус код 200
 
-#    * создать запрос
-#      | method | url                              |
-#      | GET   | https://api.trello.com/1/boards/${id}/cards|
-#    * добавить query параметры
-#      | key   | 9b121c5e4d5c30149c1b413f531bfe9d                                 |
-#      | token | a30fba37ee4edd90677db7bbad688f24a070c5e366f5d0ed4d11351708808f80 |
-##    * добавить header
-##      | Content-Type | application/json |
-#    * отправить запрос
-#    * статус код 200
-#    * извлечь данные
-#      | idList | $.[?(@.idBoard=='${id}')].idList |
+#  - Выучить методы запросов
+
+    * создать запрос
+      | method | url                                                            |
+      | POST   | https://api.trello.com/1/checklists/${idChecklists}/checkItems |
+    * добавить query параметры
+      | name  | Выучить методы запросов                                          |
+      | key   | 9b121c5e4d5c30149c1b413f531bfe9d                                 |
+      | token | a30fba37ee4edd90677db7bbad688f24a070c5e366f5d0ed4d11351708808f80 |
+    * добавить header
+      | Content-Type | application/json |
+    * отправить запрос
+    * статус код 200
+
+    * извлечь данные
+      | idCheckitemRequest | $.id |
+    * статус код 200
+
+##########################################################################################
+# 	Отметить пункт в карточке "Понять протокол HTTP"
+
+    * создать запрос
+      | method | url                                                                                               | body                 |
+      | PUT    | https://api.trello.com/1/cards/${idCard}/checklist/${idChecklists}/checkItem/${idCheckitemRequest} | updateCheckitem.json |
+    * добавить query параметры
+      | key   | 9b121c5e4d5c30149c1b413f531bfe9d                                 |
+      | token | a30fba37ee4edd90677db7bbad688f24a070c5e366f5d0ed4d11351708808f80 |
+    * добавить header
+      | Content-Type | application/json |
+    * отправить запрос
+    * статус код 200
+
+##########################################################################################
+# 	Создать колонку "Done"
+
+    * создать запрос
+      | method | url                                         |
+      | POST   | https://api.trello.com/1/boards/${id}/lists |
+    * добавить query параметры
+      | name  | Done                                                          |
+      | key   | 9b121c5e4d5c30149c1b413f531bfe9d                                 |
+      | token | a30fba37ee4edd90677db7bbad688f24a070c5e366f5d0ed4d11351708808f80 |
+    * добавить header
+      | Content-Type | application/json |
+    * отправить запрос
+    * статус код 200
+
+    * извлечь данные
+      | idListDone | $.[?(@.name=='Done')].id |
+    * статус код 200
+
+##########################################################################################
+# 	Переместить карточку в эту ("Done") колонку
+
+    * создать запрос
+      | method | url                                         |
+      | POST   | https://api.trello.com/1/lists/${idList}/moveAllCards |
+    * добавить query параметры
+      |idBoard  |   ${id}          |
+      | idList  | ${idListDone}                                                  |
+      | key     | 9b121c5e4d5c30149c1b413f531bfe9d                                 |
+      | token   | a30fba37ee4edd90677db7bbad688f24a070c5e366f5d0ed4d11351708808f80 |
+    * добавить header
+      | Content-Type | application/json |
+    * отправить запрос
+    * статус код 200
+
+##########################################################################################
+# 		Архивировать колонку "Backlog"
+
+    * создать запрос
+      | method | url                                         |
+      | PUT   | https://api.trello.com/1/lists/${idList}/closed |
+    * добавить query параметры
+      |value  |true |
+      | key   | 9b121c5e4d5c30149c1b413f531bfe9d                                 |
+      | token | a30fba37ee4edd90677db7bbad688f24a070c5e366f5d0ed4d11351708808f80 |
+    * добавить header
+      | Content-Type | application/json |
+    * отправить запрос
+    * статус код 200
+
+##########################################################################################
+# 		Отметить пункт в карточке "Выучить методы запросов"
+
+    * создать запрос
+      | method | url                                                                                               | body                 |
+      | PUT    | https://api.trello.com/1/cards/${idCard}/checklist/${idChecklists}/checkItem/${idCheckitemHttp} | updateCheckitem.json |
+    * добавить query параметры
+      | key   | 9b121c5e4d5c30149c1b413f531bfe9d                                 |
+      | token | a30fba37ee4edd90677db7bbad688f24a070c5e366f5d0ed4d11351708808f80 |
+    * добавить header
+      | Content-Type | application/json |
+    * отправить запрос
+    * статус код 200
+
+##########################################################################################
+# 		Поставить в карточке эмоджи Палец вверх
+
+    * создать запрос
+      | method | url                                          |
+      | POST   | https://api.trello.com/1/cards/${idCard}/actions/comments |
+    * добавить query параметры
+      |text   |:thumbsup:                   |
+      | key   | 9b121c5e4d5c30149c1b413f531bfe9d                                 |
+      | token | a30fba37ee4edd90677db7bbad688f24a070c5e366f5d0ed4d11351708808f80 |
+    * добавить header
+      | Content-Type | application/json |
+    * отправить запрос
+    * статус код 200
