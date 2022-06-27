@@ -1,6 +1,7 @@
 package ru.lanit.at.api;
 
 import io.qameta.allure.Allure;
+import io.restassured.builder.MultiPartSpecBuilder;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
@@ -14,9 +15,11 @@ import ru.lanit.at.utils.FileUtil;
 import ru.lanit.at.utils.JsonUtil;
 import ru.lanit.at.utils.RegexUtil;
 
+import java.io.File;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.Set;
 
 import static io.restassured.RestAssured.given;
 import static ru.lanit.at.api.testcontext.ContextHolder.replaceVarsIfPresent;
@@ -56,6 +59,7 @@ public class ApiRequest {
 
         this.builder.setBaseUri(uri);
         setBodyFromFile();
+       // addAttachment();
         addLoggingListener();
     }
 
@@ -104,6 +108,14 @@ public class ApiRequest {
             builder.setBody(body);
         }
     }
+
+    public void addAttachment(Set<String> attachment) {
+        attachment.forEach((v) -> {
+            builder.addMultiPart(new File(v));
+                    //new File(v)).controlName(k).fileName(k).mimeType("image/jpg").build());
+        });
+    }
+
 
     /**
      * Аттачит тело запроса и тело ответа в шаг отправки запроса

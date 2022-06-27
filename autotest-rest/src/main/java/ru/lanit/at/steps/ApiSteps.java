@@ -14,8 +14,11 @@ import ru.lanit.at.utils.DataGenerator;
 import ru.lanit.at.utils.Sleep;
 import ru.lanit.at.utils.VariableUtil;
 
+import java.io.File;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import static ru.lanit.at.api.testcontext.ContextHolder.replaceVarsIfPresent;
 import static ru.lanit.at.utils.JsonUtil.getFieldFromJson;
@@ -24,6 +27,8 @@ public class ApiSteps {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiSteps.class);
     private ApiRequest apiRequest;
+    //private File file = new File("autotest-rest/src/test/resources/files/URL.jpeg");
+    private Map<String, String> queryParams = new HashMap<>();
 
     @И("создать запрос")
     public void createRequest(RequestModel requestModel) {
@@ -48,6 +53,14 @@ public class ApiSteps {
         });
         apiRequest.setQuery(query);
     }
+
+    @И("добавить вложение")
+    public void addAttachments(DataTable dataTable){
+        Set<String> attachments = new HashSet<>();
+        dataTable.asLists().forEach(it -> attachments.add(it.get(0)));
+        apiRequest.addAttachment(attachments);
+    }
+
 
     @И("отправить запрос")
     public void send() {
