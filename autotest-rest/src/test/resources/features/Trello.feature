@@ -91,17 +91,6 @@
       | idCard | $.[?(@.name=='Карточка для изучения API')].id |
 #    * статус код 200
 
-#    * создать запрос
-#      | method | url                                                  | body                |
-#      | POST   | https://api.trello.com/1/cards/${idCard}/attachments | addAttachments.json |
-#    * добавить query параметры
-#      | key   | ${cKey}   |
-#      | token | ${cToken} |
-#    * добавить header
-#      | Content-Type | application/json |
-#    * отправить запрос
-#    * статус код 200
-
     * создать запрос
       | method | url                                                  |
       | POST   | https://api.trello.com/1/cards/${idCard}/attachments |
@@ -111,7 +100,6 @@
     * добавить вложение
       | src/test/resources/files/URL.jpg |
     * добавить header
-#      | Accept | application/json |
       | Content-Type | multipart/form-data |
     * отправить запрос
     * статус код 200

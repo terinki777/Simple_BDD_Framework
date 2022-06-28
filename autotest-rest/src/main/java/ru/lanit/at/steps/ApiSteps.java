@@ -14,7 +14,6 @@ import ru.lanit.at.utils.DataGenerator;
 import ru.lanit.at.utils.Sleep;
 import ru.lanit.at.utils.VariableUtil;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -27,7 +26,6 @@ public class ApiSteps {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiSteps.class);
     private ApiRequest apiRequest;
-    //private File file = new File("autotest-rest/src/test/resources/files/URL.jpeg");
     private Map<String, String> queryParams = new HashMap<>();
 
     @И("создать запрос")

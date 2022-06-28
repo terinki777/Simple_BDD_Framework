@@ -1,7 +1,6 @@
 package ru.lanit.at.api;
 
 import io.qameta.allure.Allure;
-import io.restassured.builder.MultiPartSpecBuilder;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
@@ -59,7 +58,6 @@ public class ApiRequest {
 
         this.builder.setBaseUri(uri);
         setBodyFromFile();
-       // addAttachment();
         addLoggingListener();
     }
 
@@ -112,7 +110,6 @@ public class ApiRequest {
     public void addAttachment(Set<String> attachment) {
         attachment.forEach((v) -> {
             builder.addMultiPart(new File(v));
-                    //new File(v)).controlName(k).fileName(k).mimeType("image/jpg").build());
         });
     }
 
