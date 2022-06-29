@@ -19,5 +19,19 @@ public class TrelloOpenBoard extends WebPage {
     private SelenideElement closeBoardMenu = $x("//a[@class='board-menu-header-close-button icon-lg " +
             "icon-close js-hide-sidebar']");
 
+    @Name("смена рабочего пространства")
+    private SelenideElement changeBoard = $x("//a[@class='board-header-btn board-header-btn-org-name " +
+            "js-open-org-menu board-header-btn-without-icon']");
+
+    @Name("название доски")
+    private SelenideElement nameBoard = $x("//div[@class='board-header-btn mod-board-name " +
+            "inline-rename-board js-rename-board']");
+
+//    @Name("редактируемое поле названия доски")
+//    private SelenideElement fieldChangeNameBoard = $x("//div[@class='board-header-btn mod-board-name \" +\n" +
+//            "            \"inline-rename-board js-rename-board is-editing']");
+
+    @Name("редактируемое поле названия доски")
+    private SelenideElement fieldChangeNameBoard = $x("//input[@class='board-name-input js-board-name-input']");
 
 }

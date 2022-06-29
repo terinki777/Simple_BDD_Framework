@@ -15,4 +15,10 @@ public class TrelloBoards extends WebPage {
     @Name("доска")
     private SelenideElement board = $x("//div[@class='board-tile-details is-badged']");
 
+    @Name("название рабочего пространства")
+    private SelenideElement nameSpace = $x("//input[@data-test-id='header-create-team-name-input']");
+
+    @Name("выпадающий список")
+    private SelenideElement dropDown = $x("//div[@data-test-id='header-create-team-type-input']");
+
 }

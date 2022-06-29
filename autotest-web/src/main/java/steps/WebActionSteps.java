@@ -47,6 +47,17 @@ public class WebActionSteps {
         LOGGER.info("клик на элемент '{}'", elementName);
     }
 
+    @Если("нажать ENTER в элементе {string}")
+    public void pressEnterOnElement(String elementName) {
+        SelenideElement element = pageManager
+                .getCurrentPage()
+                .getElement(elementName);
+        element
+                .shouldBe(Condition.visible)
+                .pressEnter();
+        LOGGER.info("клик на элемент '{}'", elementName);
+    }
+
     /**
      * скролл до элемента
      *
@@ -95,6 +106,18 @@ public class WebActionSteps {
         LOGGER.info("в поле '{}' введено значение '{}'", field, value);
     }
 
+    @Когда("ввести в поле {string} значение {string} и нажать ENTER")
+    public void fillTheFieldAndPressEnter(String field, String value) {
+        SelenideElement fieldElement = pageManager
+                .getCurrentPage()
+                .getElement(field);
+        fieldElement
+                .shouldBe(Condition.visible)
+                .setValue(value)
+                .pressEnter();
+        LOGGER.info("в поле '{}' введено значение '{}'", field, value);
+    }
+
     /**
      * Очистка поля
      *
@@ -108,4 +131,5 @@ public class WebActionSteps {
                 .shouldBe(Condition.visible)
                 .clear();
     }
+
 }
