@@ -15,7 +15,4 @@ public class TrelloNewWorkspace extends WebPage {
     @Name("заголовок доски")
     private SelenideElement newBoardName = $x("//input[@data-test-id='create-board-title-input']");
 
-//    @Name("кнопка создать")
-//    private SelenideElement buttonCreate = $x("//button[@data-test-id='create-board-submit-button']");
-
 }

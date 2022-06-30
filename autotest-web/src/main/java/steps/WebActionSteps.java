@@ -113,9 +113,9 @@ public class WebActionSteps {
                 .getElement(field);
         fieldElement
                 .shouldBe(Condition.visible)
-                .setValue(value)
-                .pressEnter();
-        LOGGER.info("в поле '{}' введено значение '{}'", field, value);
+                .sendKeys(value);
+        fieldElement.pressEnter();
+        LOGGER.info("в поле '{}' введено значение '{}' и нажат ENTER", field, value);
     }
 
     /**
