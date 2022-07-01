@@ -35,6 +35,8 @@ public class ApiRequest {
     private String body;
     private String fullUrl;
     private Response response;
+    private String key;
+    private String token;
 
     private RequestSpecBuilder builder;
 
@@ -46,6 +48,8 @@ public class ApiRequest {
         this.method = Method.valueOf(requestModel.getMethod());
         this.body = requestModel.getBody();
         this.fullUrl = replaceVarsIfPresent(requestModel.getUrl());
+        this.key = CONFIGURATIONS.getTrelloKey();
+        this.token = CONFIGURATIONS.getTrelloToken();
 
         URI uri;
 
@@ -57,6 +61,8 @@ public class ApiRequest {
         }
 
         this.builder.setBaseUri(uri);
+        builder.addQueryParam("key",key);
+        builder.addQueryParam("token",token);
         setBodyFromFile();
         addLoggingListener();
     }

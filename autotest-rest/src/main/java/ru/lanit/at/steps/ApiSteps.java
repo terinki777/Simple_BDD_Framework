@@ -43,12 +43,7 @@ public class ApiSteps {
     @И("добавить query параметры")
     public void addQuery(DataTable dataTable) {
         Map<String, String> query = new HashMap<>();
-        dataTable.asLists().forEach(it -> {
-            if (it.get(1).startsWith("$"))
-                query.put(it.get(0), replaceVarsIfPresent(it.get(1)));
-            else
-                query.put(it.get(0), it.get(1));
-        });
+        dataTable.asLists().forEach(it -> query.put(it.get(0), replaceVarsIfPresent(it.get(1))));
         apiRequest.setQuery(query);
     }
 

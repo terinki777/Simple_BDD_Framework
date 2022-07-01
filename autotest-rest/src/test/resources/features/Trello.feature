@@ -1,5 +1,5 @@
 #language:ru
-@test4
+@test
 
 Функционал: Trello API
 #  • Создать доску "KanbanTool"
@@ -20,18 +20,10 @@
 
   Сценарий: Выполнение запросов в Trello
 
-    Когда создать контекстные переменные
-      | cKey   | 9b121c5e4d5c30149c1b413f531bfe9d                                                           |
-      | cToken | a30fba37ee4edd90677db7bbad688f24a070c5e366f5d0ed4d11351708808f80                           |
-
-
 # Создать доску "KanbanTool"
     * создать запрос
       | method | url                              | body             |
       | POST   | https://api.trello.com/1/boards/ | createBoard.json |
-    * добавить query параметры
-      | key   | ${cKey}   |
-      | token | ${cToken} |
     * добавить header
       | Content-Type | application/json |
     * отправить запрос
@@ -45,9 +37,7 @@
       | method | url                                         |
       | POST   | https://api.trello.com/1/boards/${id}/lists |
     * добавить query параметры
-      | name  | Backlog   |
-      | key   | ${cKey}   |
-      | token | ${cToken} |
+      | name | Backlog |
     * добавить header
       | Content-Type | application/json |
     * отправить запрос
@@ -58,9 +48,6 @@
     * создать запрос
       | method | url                                         |
       | GET    | https://api.trello.com/1/boards/${id}/lists |
-    * добавить query параметры
-      | key   | ${cKey}   |
-      | token | ${cToken} |
     * отправить запрос
     * извлечь данные
       | idList | $.[?(@.name=='Backlog')].id |
@@ -71,8 +58,6 @@
       | POST   | https://api.trello.com/1/cards | createCard.json |
     * добавить query параметры
       | idList | ${idList} |
-      | key    | ${cKey}   |
-      | token  | ${cToken} |
     * добавить header
       | Content-Type | application/json |
     * отправить запрос
@@ -83,9 +68,6 @@
     * создать запрос
       | method | url                                         |
       | GET    | https://api.trello.com/1/boards/${id}/cards |
-    * добавить query параметры
-      | key   | ${cKey}   |
-      | token | ${cToken} |
     * отправить запрос
     * извлечь данные
       | idCard | $.[?(@.name=='Карточка для изучения API')].id |
@@ -94,9 +76,6 @@
     * создать запрос
       | method | url                                                  |
       | POST   | https://api.trello.com/1/cards/${idCard}/attachments |
-    * добавить query параметры
-      | key   | ${cKey}   |
-      | token | ${cToken} |
     * добавить вложение
       | src/test/resources/files/URL.jpg |
     * добавить header
@@ -110,9 +89,6 @@
     * создать запрос
       | method | url                                      | body            |
       | PUT    | https://api.trello.com/1/cards/${idCard} | updateCard.json |
-    * добавить query параметры
-      | key   | ${cKey}   |
-      | token | ${cToken} |
     * добавить header
       | Content-Type | application/json |
     * отправить запрос
@@ -125,8 +101,6 @@
       | POST   | https://api.trello.com/1/checklists |
     * добавить query параметры
       | idCard | ${idCard} |
-      | key    | ${cKey}   |
-      | token  | ${cToken} |
     * добавить header
       | Content-Type | application/json |
     * отправить запрос
@@ -143,9 +117,7 @@
       | method | url                                                            |
       | POST   | https://api.trello.com/1/checklists/${idChecklists}/checkItems |
     * добавить query параметры
-      | name  | Понять протокол HTTP |
-      | key   | ${cKey}              |
-      | token | ${cToken}            |
+      | name | Понять протокол HTTP |
     * добавить header
       | Content-Type | application/json |
     * отправить запрос
@@ -161,9 +133,7 @@
       | method | url                                                            |
       | POST   | https://api.trello.com/1/checklists/${idChecklists}/checkItems |
     * добавить query параметры
-      | name  | Выучить методы запросов |
-      | key   | ${cKey}                 |
-      | token | ${cToken}               |
+      | name | Выучить методы запросов |
     * добавить header
       | Content-Type | application/json |
     * отправить запрос
@@ -179,9 +149,6 @@
     * создать запрос
       | method | url                                                                                                | body                 |
       | PUT    | https://api.trello.com/1/cards/${idCard}/checklist/${idChecklists}/checkItem/${idCheckitemRequest} | updateCheckitem.json |
-    * добавить query параметры
-      | key   | ${cKey}   |
-      | token | ${cToken} |
     * добавить header
       | Content-Type | application/json |
     * отправить запрос
@@ -194,9 +161,7 @@
       | method | url                                         |
       | POST   | https://api.trello.com/1/boards/${id}/lists |
     * добавить query параметры
-      | name  | Done      |
-      | key   | ${cKey}   |
-      | token | ${cToken} |
+      | name | Done |
     * добавить header
       | Content-Type | application/json |
     * отправить запрос
@@ -215,8 +180,6 @@
     * добавить query параметры
       | idBoard | ${id}         |
       | idList  | ${idListDone} |
-      | key     | ${cKey}       |
-      | token   | ${cToken}     |
     * добавить header
       | Content-Type | application/json |
     * отправить запрос
@@ -229,9 +192,7 @@
       | method | url                                             |
       | PUT    | https://api.trello.com/1/lists/${idList}/closed |
     * добавить query параметры
-      | value | true      |
-      | key   | ${cKey}   |
-      | token | ${cToken} |
+      | value | true |
     * добавить header
       | Content-Type | application/json |
     * отправить запрос
@@ -243,9 +204,6 @@
     * создать запрос
       | method | url                                                                                             | body                 |
       | PUT    | https://api.trello.com/1/cards/${idCard}/checklist/${idChecklists}/checkItem/${idCheckitemHttp} | updateCheckitem.json |
-    * добавить query параметры
-      | key   | ${cKey}   |
-      | token | ${cToken} |
     * добавить header
       | Content-Type | application/json |
     * отправить запрос
@@ -258,9 +216,7 @@
       | method | url                                                       |
       | POST   | https://api.trello.com/1/cards/${idCard}/actions/comments |
     * добавить query параметры
-      | text  | :thumbsup: |
-      | key   | ${cKey}    |
-      | token | ${cToken}  |
+      | text | :thumbsup: |
     * добавить header
       | Content-Type | application/json |
     * отправить запрос
