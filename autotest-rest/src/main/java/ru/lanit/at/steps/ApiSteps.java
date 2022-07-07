@@ -15,7 +15,9 @@ import ru.lanit.at.utils.Sleep;
 import ru.lanit.at.utils.VariableUtil;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import static ru.lanit.at.api.testcontext.ContextHolder.replaceVarsIfPresent;
 import static ru.lanit.at.utils.JsonUtil.getFieldFromJson;
@@ -24,6 +26,7 @@ public class ApiSteps {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiSteps.class);
     private ApiRequest apiRequest;
+    private Map<String, String> queryParams = new HashMap<>();
 
     @И("создать запрос")
     public void createRequest(RequestModel requestModel) {
@@ -40,9 +43,17 @@ public class ApiSteps {
     @И("добавить query параметры")
     public void addQuery(DataTable dataTable) {
         Map<String, String> query = new HashMap<>();
-        dataTable.asLists().forEach(it -> query.put(it.get(0), it.get(1)));
+        dataTable.asLists().forEach(it -> query.put(it.get(0), replaceVarsIfPresent(it.get(1))));
         apiRequest.setQuery(query);
     }
+
+    @И("добавить вложение")
+    public void addAttachments(DataTable dataTable){
+        Set<String> attachments = new HashSet<>();
+        dataTable.asLists().forEach(it -> attachments.add(it.get(0)));
+        apiRequest.addAttachment(attachments);
+    }
+
 
     @И("отправить запрос")
     public void send() {

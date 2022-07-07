@@ -14,4 +14,12 @@ public interface RestConfigurations extends Config {
     @DefaultValue("")
     String getBaseUrl();
 
+    @Key("key")
+    @DefaultValue("")
+    String getTrelloKey();
+
+    @Key("token")
+    @DefaultValue("")
+    String getTrelloToken();
+
 }

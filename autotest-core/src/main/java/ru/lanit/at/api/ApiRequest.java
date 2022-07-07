@@ -14,9 +14,11 @@ import ru.lanit.at.utils.FileUtil;
 import ru.lanit.at.utils.JsonUtil;
 import ru.lanit.at.utils.RegexUtil;
 
+import java.io.File;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.Set;
 
 import static io.restassured.RestAssured.given;
 import static ru.lanit.at.api.testcontext.ContextHolder.replaceVarsIfPresent;
@@ -33,6 +35,8 @@ public class ApiRequest {
     private String body;
     private String fullUrl;
     private Response response;
+    private String key;
+    private String token;
 
     private RequestSpecBuilder builder;
 
@@ -44,6 +48,8 @@ public class ApiRequest {
         this.method = Method.valueOf(requestModel.getMethod());
         this.body = requestModel.getBody();
         this.fullUrl = replaceVarsIfPresent(requestModel.getUrl());
+        this.key = CONFIGURATIONS.getTrelloKey();
+        this.token = CONFIGURATIONS.getTrelloToken();
 
         URI uri;
 
@@ -55,6 +61,8 @@ public class ApiRequest {
         }
 
         this.builder.setBaseUri(uri);
+        builder.addQueryParam("key",key);
+        builder.addQueryParam("token",token);
         setBodyFromFile();
         addLoggingListener();
     }
@@ -104,6 +112,13 @@ public class ApiRequest {
             builder.setBody(body);
         }
     }
+
+    public void addAttachment(Set<String> attachment) {
+        attachment.forEach((v) -> {
+            builder.addMultiPart(new File(v));
+        });
+    }
+
 
     /**
      * Аттачит тело запроса и тело ответа в шаг отправки запроса

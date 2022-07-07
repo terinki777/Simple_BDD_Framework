@@ -20,7 +20,7 @@
         <java.target>8</java.target>
 
         <owner.version>1.0.12</owner.version>
-        <cucumber.version>6.9.1</cucumber.version>
+        <cucumber.version>7.3.4</cucumber.version>
         <aspectj.version>1.9.6</aspectj.version>
         <surefire.version>2.22.2</surefire.version>
         <selenide.version>5.21.0</selenide.version>
