@@ -1,6 +1,5 @@
 #language:ru
-@test
-
+@books
 Функционал: Образец GET запроса
 
   Сценарий: Запрос в bookstore к книге Just Spring Integration
