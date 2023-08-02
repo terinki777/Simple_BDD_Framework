@@ -22,3 +22,6 @@
       | ${title}    | ==       | Just Spring Integration                          |
       | ${subtitle} | ==       | A Lightweight Introduction to Spring Integration |
       | ${price}    | содержит | 16.99                                            |
+
+    Когда создать контекстные переменные
+      | branch | at_1 |
