@@ -1,6 +1,5 @@
 #language:ru
-@test
-
+@github
 Функционал: Selenide github test
   - Выполнение запроса в репозиторий selenide
   - Проверка что статус-код = 200
