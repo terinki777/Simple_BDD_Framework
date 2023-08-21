@@ -11,16 +11,23 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('Git') {
             steps {
-                // Get some code from a GitHub repository
+		deleteDir()    
                 git url: 'https://github.com/terinki777/Simple_BDD_Framework.git',
                 branch: params.BRANCH
-                // Run Maven on a Unix agent.
-                sh "mvn -am -pl autotest-rest test -Dtags=${params.TAG} -Ddataproviderthreadcount=5"
             }
         }
     }
+
+    stages {
+        stage('Test') {
+            steps {
+                sh "mvn -am -pl autotest-rest test -Dtags=${TAG} -Ddataproviderthreadcount=5"
+            }
+        }
+    }
+	
 	post {
 		always {
 			 allure([
