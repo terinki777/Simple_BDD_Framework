@@ -1,5 +1,8 @@
 pipeline {
     agent any
+	parameters {
+        string(name: 'TAG', defaultValue: '@test', description: 'Tags for tests')
+    }
 
     stages {
         stage('Build') {
