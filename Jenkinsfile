@@ -18,15 +18,14 @@ pipeline {
                 branch: params.BRANCH
             }
         }
+	 stage('Test') {
+	            steps {
+	                sh "mvn -am -pl autotest-rest test -Dtags=${TAG} -Ddataproviderthreadcount=5"
+	            }
+	 }
     }
 
-    stages {
-        stage('Test') {
-            steps {
-                sh "mvn -am -pl autotest-rest test -Dtags=${TAG} -Ddataproviderthreadcount=5"
-            }
-        }
-    }
+        
 	
 	post {
 		always {
