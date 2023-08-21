@@ -8,6 +8,7 @@ pipeline {
 	
     parameters {
         string(name: 'TAG', defaultValue: '@test', description: 'Tags for tests')
+	string(name: 'BRANCH', defaultValue: 'master', description: 'Branch for tests')
     }
 
     stages {
@@ -20,7 +21,7 @@ pipeline {
         }
 	 stage('Test') {
 	            steps {
-	                sh "mvn -am -pl autotest-rest test -Dtags=${TAG} -Ddataproviderthreadcount=5"
+	                sh "mvn -am -pl autotest-rest test -Dtags=${params.TAG} -Ddataproviderthreadcount=5"
 	            }
 	 }
     }
@@ -30,9 +31,11 @@ pipeline {
 	post {
 		always {
 			 allure([
-	           reportBuildPolicy: 'ALWAYS',
-		       results: [[path: 'autotest-rest/target/allure-results']]
-	       ])
+			includeProperties: false,
+      	                jdk: '',
+	                reportBuildPolicy: 'ALWAYS',
+		        results: [[path: 'autotest-rest/target/allure-results']]
+	                ])
 		}
 	}
 }
